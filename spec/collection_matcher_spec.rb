@@ -24,13 +24,12 @@ describe 'collection matchers' do
   end
 
   it 'will match hashes' do
-hash = {:a => 1, :b => 2, :c => 3}
+    hash = {:a => 1, :b => 2, :c => 3}
 
     expect(hash).to include(:a)
     expect(hash).to include(:a => 1)
     expect(hash).to include(:a => 1, :c => 3)
     expect(hash).to include({:a => 1, :c => 3})
     expect(hash).not_to include('a' => 1, 'c' => 3)
-
   end
 end
