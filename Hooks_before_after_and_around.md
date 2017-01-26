@@ -101,3 +101,7 @@ describe 'attributes' do
 I want to make sure that setting those values is not going to cause problems in my other examples. Because if I just do it one time, that car object is still around.
 
 It's still what's going to be referred to. By you calling before example, I'm going to be creating a new instance of it each time. I'm essentially refreshing it with a new instance. That's not a particularly expensive operation, so that's okay.
+
+Why did I use before example? Well because I'm setting some values here, and I just want to make sure that setting those values is not going to cause problems in my other examples, right? Because if I just do it one time, that car object is still around.
+
+It's still what's going to be referred to. By you calling before example, I'm going to be creating a new instance of it each time. I'm essentially refreshing it with a new instance. That's not a particularly expensive operation, so that's okay.
