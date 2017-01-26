@@ -3,18 +3,15 @@
 This is the idea behind hooks.  Write code one time and then tell RSpec
 to run that code either before, after, or around our examples.
 
-### Before hooks
-
-### After hooks
-
-### Around hooks
+### Before hooks,  After hooks,  Around hooks
 
 Each of these RSpec methods is going to take an argument,
 which is a symbol indicating the scope in which it should be run.
 
-  ```           config.before(:suite) do
+```
+            config.before(:suite) do
                 ... code in here
-                end
+            end
 ```
 
 This ensures that whether you're running one test or all of tests,
@@ -32,11 +29,11 @@ This runs the block of code once before any of the examples in an example group 
 And you'll remember, an example group is defined by describe or context.
 So before it runs anything inside that context, it'll run that block of code.
 
-          ```
+```
               before(:example) do :alias before(:each)
 
               end
-          ```
+```
 
 In the third example, we are using the example scope. This runs the block of code once before each example.
 If you have 10 examples in an example group, then the before example code will run 10 times.
@@ -49,6 +46,7 @@ after context, after suite.
 
 
 ### Around
+
 ```
  around(:example) do |example|
     puts "Code to execute before example "
@@ -69,5 +67,37 @@ are done, then the around code takes place. So it wraps everything, including yo
 
 ### One other thing that is important to know about hooks
 
-You need to use instance variables in them in order to make
-objects and values available to your examples.
+You need to use instance variables in them in order to make objects and values available to your examples.
+So, for example, if we did some searching in the database and we find a customer. We assign it to the variable customer. That's a local variable that will not be available. But @customer is an instance variable, and it will be available to all of our examples. So just make sure that you're always using instance variables in order to access information between your hooks and your examples.
+
+### Example
+```
+describe 'attributes' do
+  before(:example) do
+    @car = Car.new
+  end
+
+  it 'allows reading and writing for :make' do
+    @car.make = 'Test'
+    expect(car.make).to eq('Test')
+  end
+
+  it 'allows reading and writing for year' do
+    @car.year = 9999
+    expect(@car.year).to eq(9999)
+  end
+end
+```
+### Instead of:
+```
+describe 'attributes' do
+  it 'allows reading and writing for :make' do
+    car = Car.new
+    @car.make = 'Test'
+    expect(car.make).to eq('Test')
+  end
+```
+
+I want to make sure that setting those values is not going to cause problems in my other examples. Because if I just do it one time, that car object is still around.
+
+It's still what's going to be referred to. By you calling before example, I'm going to be creating a new instance of it each time. I'm essentially refreshing it with a new instance. That's not a particularly expensive operation, so that's okay.

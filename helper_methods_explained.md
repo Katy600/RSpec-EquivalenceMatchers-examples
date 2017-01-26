@@ -2,7 +2,7 @@
 
 First initialize your project using rspec --init
 
-This will
+This will:
 1. Create a file for us at the root of our project called .rspec.
 2. Create a new file in our Spec Directory called spec_helper.rb.
 
